@@ -40,12 +40,6 @@ uint16_t constrain16(uint16_t input, uint16_t minValue, uint16_t maxValue);
  */
 float standardRadianFormat(float angle);
 
-/** @brief Formats values from an iBus receiver for 3D mode.
- *
- *  @param rxCommand Value from iBus receiver.
- *  @return uint16_t Formatted value.
- */
-uint16_t dshot3dFormat(int16_t rxCmd);
 
 /** @brief Simple and fast atof (ascii to float) function.
  *

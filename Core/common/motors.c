@@ -7,6 +7,8 @@
  */
 #include "board.h"
 
+speed_t motors[MOTOR_COUNT]; // 0 -> 3 : RB RF LB LF
+
 void Motors_Init(void)
 {
     HAL_TIM_PWM_Start(RIGHT_MOTOR_PART, RBMotor);
@@ -20,9 +22,23 @@ void Motors_Init(void)
     motors[4] = MIN_PWM;
 }
 
-void Motors_SetPWM(speed_t motor, float pwm)
+void Motors_SetPWM(speed_t * motor, float pwm)
 {
-    
+    *motor = constrain(pwm, MIN_PWM, MAX_PWM);
 } 
 
-void Motors_SetAllPWM(speed_t * motors, float pwm1, float pwm2, float pwm3, float pwm4);
+void Motors_SetAllPWM(float pwm1, float pwm2, float pwm3, float pwm4)
+{
+    motors[1] = constrain(pwm1, MIN_PWM, MAX_PWM);
+    motors[2] = constrain(pwm2, MIN_PWM, MAX_PWM);
+    motors[3] = constrain(pwm3, MIN_PWM, MAX_PWM);
+    motors[4] = constrain(pwm4, MIN_PWM, MAX_PWM);
+}
+
+void Motors_Run(void)
+{
+    __HAL_TIM_SET_COMPARE(RIGHT_MOTOR_PART, RBMotor, motors[1]);
+    __HAL_TIM_SET_COMPARE(RIGHT_MOTOR_PART, RFMotor, motors[2]);
+    __HAL_TIM_SET_COMPARE(LEFT_MOTOR_PART, LBMotor, motors[3]);
+    __HAL_TIM_SET_COMPARE(LEFT_MOTOR_PART, LFMotor, motors[4]);
+}

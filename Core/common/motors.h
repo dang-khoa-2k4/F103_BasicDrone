@@ -19,11 +19,44 @@
 /* Global Enums */
 typedef uint16_t speed_t;
 
-speed_t motors[MOTOR_COUNT];
+extern speed_t motors[MOTOR_COUNT]; // 0 -> 3 : RB RF LB LF
 
+/* Function Prototypes */
+/** @brief Initialize the ESCs with the minimum PWM.
+ *
+ *  @param None
+ * 
+ *  @return None
+ */
 void Motors_Init(void);
-void Motors_SetPWM(speed_t motor, float pwm);
+
+/** @brief Set the PWM of a motor.
+ *
+ *  @param motor Pointer to the motor speed_t structure.
+ *  @param pwm The pwm will be set for that motor.
+ * 
+ *  @return None
+ */
+void Motors_SetPWM(speed_t * motor, float pwm);
+
+/** @brief Set the PWM of all motors.
+ *
+ *  @param pwm1 PWM for RB motor.
+ *  @param pwm2 PWM for RF motor.
+ *  @param pwm3 PWM for LB motor.
+ *  @param pwm4 PWM for LF motor.
+ * 
+ *  @return None
+ */
 void Motors_SetAllPWM(float pwm1, float pwm2, float pwm3, float pwm4);
+
+/** @brief Run the motors.
+ *
+ *  @param None
+ * 
+ *  @return None
+ */
+void Motors_Run(void);
 
 #ifdef __cplusplus
 }
