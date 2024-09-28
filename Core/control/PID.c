@@ -1,7 +1,8 @@
 #include "board.h"
 
-void set_PID_gain(PID_instance *PID, PID_instance * PID_inner, float p, float i, float d)
+void PID_init(PID_instance *PID, PID_instance * PID_inner, float p, float i, float d)
 {
+    reset_PID_gain(PID);
     PID->p_gain = p;
     PID->i_gain = i;
     PID->d_gain = d;
@@ -26,7 +27,7 @@ void reset_PID_gain(PID_instance *PID)
 }
 
 
-void base_PID_calc(PID_instance *PID, float error_input, uint16_t sampling_rate, float filter_gain)
+int16_t base_PID_calc(PID_instance *PID, float error_input, uint16_t sampling_rate, float filter_gain)
 {
     // anti windup
     PID->integral_error += error_input * sampling_rate;  
@@ -52,11 +53,11 @@ void base_PID_calc(PID_instance *PID, float error_input, uint16_t sampling_rate,
     PID->isSaturation = (raw_value != PID->output_PID) && (raw_value * error_input > 0); 
     PID->pre_error = error_input;
 
-    return;
+    return PID->output_PID;
 }
 
 // error angle = set_point_angle - angle
-void angle_PID_drone(PID_instance * PID, float error_angle, int16_t rate /* Gyro */, float filter_gain, uint16_t sampling_rate)
+int16_t angle_PID_drone(PID_instance * PID, float error_angle, int16_t rate /* Gyro */, float filter_gain, uint16_t sampling_rate)
 {
     // if(error_angle > 180.f) error_angle -= 360.f;
 	// else if(error_angle < -180.f) error_angle += 360.f;
@@ -88,8 +89,7 @@ void angle_PID_drone(PID_instance * PID, float error_angle, int16_t rate /* Gyro
     // innner loop (rate control)
 // #define INNER_PID
     int16_t error_rate = PID->output_PID - rate;
-    base_PID_calc(&(PID->inner), error_rate, sampling_rate, 0.5);
-    PID->output_PID = PID->inner.output_PID;
+    PID->output_PID = base_PID_calc(&(PID->inner), error_rate, sampling_rate, 0.5);
 
-    return;
+    return PID->output_PID;
 }

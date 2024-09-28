@@ -7,6 +7,8 @@
 
 #include "board.h"
 
+IMU imu;
+
 // Function for matrix multiplication of 2x2 and 2x1 matrices
 static void mat_mult_2x2_2x1(double result[2][1], double A[2][2], double B[2][1]) {
     result[0][0] = A[0][0] * B[0][0] + A[0][1] * B[1][0];

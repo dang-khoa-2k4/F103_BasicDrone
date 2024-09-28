@@ -7,6 +7,9 @@
 
 #include "nRF24L01.h"
 
+uint8_t rxCommands[NRF24L01_PAYLOAD_LENGTH];
+uint16_t rxCommands[PAYLOAD_USER];
+
 void CS_select() 	{ HAL_GPIO_WritePin(NRF24L01_CS_PIN_PORT, NRF24L01_CS_PIN_NUMBER, 0); }
 void CS_unselect()	{ HAL_GPIO_WritePin(NRF24L01_CS_PIN_PORT, NRF24L01_CS_PIN_NUMBER, 1); }
 void CE_enable()	{ HAL_GPIO_WritePin(NRF24L01_CE_PIN_PORT, NRF24L01_CE_PIN_NUMBER, 1); }
@@ -115,13 +118,23 @@ void nrf24l01_tx_init(channel MHz, air_data_rate bps)
     CE_enable();
 }
 
-void nrf24l01_rx_receive(uint8_t* rx_payload)
+static void decode_data_received(uint8_t* rx_payload)
 {
-    nrf24l01_read_rx_fifo(rx_payload);
+	rxCommands[ROLL] 		= (rx_payload[0] << 8) | rx_payload[1];
+	rxCommands[PITCH] 		= (rx_payload[2] << 8) | rx_payload[3];
+	rxCommands[YAW] 		= (rx_payload[4] << 8) | rx_payload[5];
+	rxCommands[THROTTLE] 	= (rx_payload[6] << 8) | rx_payload[7];
+}
+
+void nrf24l01_rx_receive()
+{
+    nrf24l01_read_rx_fifo(rx_raw);
     nrf24l01_clear_rx_dr();
     nrf24l01_flush_rx_fifo();
     // for testing
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+    led_0_Toggle();
+	// decode data
+	decode_data_received(rx_raw);
 }
 
 uint8_t nrf24l01_read_rx_fifo(uint8_t* rx_payload)
@@ -160,12 +173,12 @@ void nrf24l01_tx_irq()
 	if (tx_ds)
 	{
 		// it mean ACK received
-		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+		led_0_Toggle();
 		nrf24l01_clear_tx_ds();
 	}
 	else
 	{
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
+		led_0_ON();
 		nrf24l01_clear_max_rt();
 	}
 }

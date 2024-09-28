@@ -13,12 +13,38 @@
  extern "C" {
 #endif
 
+#define kP_roll 10.0
+#define kI_roll 10.0
+#define kD_roll 10.0
+
+#define kP_pitch 10.0
+#define kI_pitch 10.0
+#define kD_pitch 10.0
+
+#define kP_yaw 10.0
+#define kI_yaw 10.0
+#define kD_yaw 10.0
+
+#define kP_inner_roll 10.0
+#define kI_inner_roll 10.0
+#define kD_inner_roll 10.0
+
+#define kP_inner_pitch 10.0
+#define kI_inner_pitch 10.0
+#define kD_inner_pitch 10.0
+
+#define ANGLE_SCALING(X) (0.06f * ((X) - 1500))
+ 
 /* Global Enums */
+extern PID_instance pid_roll;
+extern PID_instance pid_pitch;
+extern PID_instance pid_yaw;
+extern PID_instance pid_inner_roll;
+extern PID_instance pid_inner_pitch;
 
-
-// void Config_Init(void);
-void Config_PID(float kp, float ki, float kd);
-void Config_ALL(void);
+void Config_Init(void);
+// void Config_PID(float kp, float ki, float kd);
+// void Config_ALL(void);
 
 #ifdef __cplusplus
 }

@@ -28,6 +28,7 @@
 #define NRF24L01_IRQ_PIN_NUMBER          MY_NRF24L01_IRQ_PIN_NUMBER
 
 #define NRF24L01_PAYLOAD_LENGTH          8     // 1 - 32bytes
+#define PAYLOAD_USER                     4     // roll, pitch, yaw, throttle
 /* End User Configurations */
 
 /* nRF24L01+ typedefs */
@@ -57,6 +58,9 @@ typedef enum
 	_1byte = 0,
 	_2byte = 1
 } crc_length;
+
+uint8_t rx_raw[NRF24L01_PAYLOAD_LENGTH];
+extern uint16_t rxCommands[PAYLOAD_USER];
 /* FUNCTION PART */
 
 /* Main Functions */

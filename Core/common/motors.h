@@ -11,8 +11,14 @@
 
 /* Defines */
 #define MOTOR_COUNT			4
-#define MIN_PWM				1000
-#define MAX_PWM				2000
+#define MIN_PWM				1180
+#define MAX_PWM				1999
+
+#define RIGHT_BACK_MOTOR        0
+#define RIGHT_FRONT_MOTOR       1
+#define LEFT_BACK_MOTOR         2
+#define LEFT_FRONT_MOTOR        3
+
 #ifdef __cplusplus
  extern "C" {
 #endif

@@ -12,6 +12,11 @@
 #include "mpu6050.h"
 #include "gy_bmp280.h"
 
+#define ROLL     0
+#define PITCH    1
+#define YAW      2
+#define THROTTLE 3
+
 typedef struct
 {
     double angle;
@@ -33,20 +38,21 @@ typedef struct {
 
 typedef struct {
     double angleRoll;
-	double anglePitch;
+	  double anglePitch;
 
     double vertical_velocity;
     double inertial_z;
     double altitude;
 
-	Kalman_1D_t Kalman_X;
-	Kalman_1D_t Kalman_Y;
+	  Kalman_1D_t Kalman_X;
+	  Kalman_1D_t Kalman_Y;
 
     Kalman_2D_t Kalman_2D;
 
     MPU_6050 mpu;
     BMP280 bmp;
 } IMU;
+
 
 /**
   * @brief  Intialize IMU including MPU6050 and BMP280

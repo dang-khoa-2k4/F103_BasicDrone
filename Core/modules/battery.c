@@ -22,7 +22,7 @@ static battCells_e getBattCells() {
 	{
 		battMonRead();
 		summedVoltage += battVoltage;
-		delay(10);
+		HAL_Delay(10);
 	}
 	avgVoltage = summedVoltage / 10.0f;
 

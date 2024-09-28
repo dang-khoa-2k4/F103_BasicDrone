@@ -16,12 +16,16 @@
 #include "config.h"
 #include "communicate.h"
 #include "utilities.h"
+#include "mixer.h"
+#include "compute_axis.h"
 
 extern I2C_HandleTypeDef 		hi2c1;
 extern SPI_HandleTypeDef 		hspi1;
 // extern ADC_HandleTypeDef 		hadc1;
 extern TIM_HandleTypeDef        htim1;
 extern TIM_HandleTypeDef        htim2;
+
+extern uint8_t armed;
 
 // Define all the peripherals used in the project
 
