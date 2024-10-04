@@ -14,6 +14,10 @@
 /* Defines */
 #define PI 3.14159265358979323846
 
+/* Defines */
+#define white_space(c) ((c) == ' ' || (c) == '\t')
+#define valid_digit(c) ((c) >= '0' && (c) <= '9')
+
 /* Function Prototypes */
 /** @brief Constrains an input between two values.
  *
@@ -42,15 +46,6 @@ float standardRadianFormat(float angle);
 
 
 /** @brief Simple and fast atof (ascii to float) function.
- *
- * 		Executes about 5x faster than standard MSCRT library atof()
- * 		-An attractive alternative if the number of calls is in the millions.
- * 		-Assumes input is a proper integer, fraction, or scientific format.
- * 		-Matches library atof() to 15 digits (except at extreme exponents).
- * 		-Follows atof() precedent of essentially no error checking.
- *
- * 		09-May-2009 Tom Van Baak (tvb) www.LeapSecond.com
- *
  *  @param *p Pointer to string.
  *  @return float Converted float value.
  */

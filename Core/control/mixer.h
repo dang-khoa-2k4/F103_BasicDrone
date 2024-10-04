@@ -23,7 +23,6 @@ extern uint16_t throttleCmd;
 extern int16_t motor_temp[4];
 
 /* Function Prototypes */
-void pulseMotors(void);
 void mixTable(void);
 
 #endif /* __MIXER_H__ */

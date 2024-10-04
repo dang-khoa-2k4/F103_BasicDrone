@@ -36,7 +36,7 @@ int16_t base_PID_calc(PID_instance *PID, float error_input, uint16_t sampling_ra
 
     PID->integral_error = constrain(PID->integral_error, -MAX_INTEGRAL, MAX_INTEGRAL);
 
-    // avoid derivative kick
+    // avoid derivative kick occurs when a sudden change in the setpoint causes a spike in the derivative term of a PID controller
     float derivative_error = -(error_input - PID->pre_error) / sampling_rate;
     // low pass filter
     PID->derivative_error_filter = PID->derivative_error_filter * filter_gain + derivative_error * (1 - filter_gain);

@@ -35,8 +35,8 @@ mixTable(void)
 		float minDeltaThrottle;
 		float deltaThrottle;
 
-		maxDeltaThrottle = MAX_PWM - rxCommands[THROTTLE];
-		minDeltaThrottle = rxCommands[THROTTLE] - MIN_PWM;
+		maxDeltaThrottle = MAX_THROTTLE - rxCommands[THROTTLE];
+		minDeltaThrottle = rxCommands[THROTTLE] - MIN_THROTTLE;
 		deltaThrottle    = (minDeltaThrottle < maxDeltaThrottle) ? minDeltaThrottle : maxDeltaThrottle;
 
 		for (i = 0; i < MOTOR_COUNT; i++)

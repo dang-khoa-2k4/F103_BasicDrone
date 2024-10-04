@@ -16,10 +16,10 @@ void Motors_Init(void)
     HAL_TIM_PWM_Start(LEFT_MOTOR_PART, LBMotor);
     HAL_TIM_PWM_Start(LEFT_MOTOR_PART, LFMotor);
 
-    motors[RIGHT_BACK_MOTOR] = 0;
-    motors[RIGHT_FRONT_MOTOR] = 0;
-    motors[LEFT_BACK_MOTOR] = 0;
-    motors[LEFT_FRONT_MOTOR] = 0;
+    motors[RIGHT_BACK_MOTOR] = MIN_PWM;
+    motors[RIGHT_FRONT_MOTOR] = MIN_PWM;
+    motors[LEFT_BACK_MOTOR] = MIN_PWM;
+    motors[LEFT_FRONT_MOTOR] = MIN_PWM;
 }
 
 void Motors_SetPWM(speed_t * motor, float pwm)

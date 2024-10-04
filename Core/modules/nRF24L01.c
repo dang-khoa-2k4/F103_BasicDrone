@@ -7,7 +7,7 @@
 
 #include "nRF24L01.h"
 
-uint8_t rxCommands[NRF24L01_PAYLOAD_LENGTH];
+uint8_t rx_raw[NRF24L01_PAYLOAD_LENGTH];
 uint16_t rxCommands[PAYLOAD_USER];
 
 void CS_select() 	{ HAL_GPIO_WritePin(NRF24L01_CS_PIN_PORT, NRF24L01_CS_PIN_NUMBER, 0); }
@@ -120,10 +120,10 @@ void nrf24l01_tx_init(channel MHz, air_data_rate bps)
 
 static void decode_data_received(uint8_t* rx_payload)
 {
-	rxCommands[ROLL] 		= (rx_payload[0] << 8) | rx_payload[1];
-	rxCommands[PITCH] 		= (rx_payload[2] << 8) | rx_payload[3];
-	rxCommands[YAW] 		= (rx_payload[4] << 8) | rx_payload[5];
-	rxCommands[THROTTLE] 	= (rx_payload[6] << 8) | rx_payload[7];
+	rxCommands[ROLL] 		= rx_payload[0];
+	rxCommands[PITCH] 		= rx_payload[1];
+	rxCommands[YAW] 		= rx_payload[2];
+	rxCommands[THROTTLE] 	= (rx_payload[3] << 8) | rx_payload[4];
 }
 
 void nrf24l01_rx_receive()

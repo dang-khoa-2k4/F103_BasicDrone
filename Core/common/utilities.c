@@ -21,14 +21,14 @@ constrain(float input, float minValue, float maxValue)
         return input;
 }
 
-uint16_t
-constrain16(uint16_t input, uint16_t minValue, uint16_t maxValue)
+int16_t
+constrain16(int16_t input, int16_t minValue, int16_t maxValue)
 {
     if (input < minValue)
         return minValue;
     else if (input > maxValue)
         return maxValue;
-    else
+    else 
         return input;
 }
 
@@ -125,4 +125,9 @@ stringToFloat(const char *p)
     // Return signed and scaled floating point result.
 
     return sign * (frac ? (value / scale) : (value * scale));
+}
+
+int16_t scaleToPWM(int16_t input, int16_t min, int16_t max)
+{
+    return (input - min) * (MAX_PWM - MIN_PWM) / (max - min) + MIN_PWM;
 }

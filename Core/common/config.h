@@ -33,7 +33,9 @@
 #define kI_inner_pitch 10.0
 #define kD_inner_pitch 10.0
 
-#define ANGLE_SCALING(X) (0.06f * ((X) - 1500))
+// use for converting the raw values from the receiver to the actual values
+#define ANGLE_SCALING(X) (15.0 * (X)/ (1 << 11))
+#define THROTTLE_SCALING(X) ((125.0f / 1024) * (X) + 1500)
  
 /* Global Enums */
 extern PID_instance pid_roll;

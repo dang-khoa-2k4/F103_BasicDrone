@@ -20,18 +20,14 @@ int16_t ratePID[3];
 void computeAxisCommands(void)
 {
     float error;
-    float CommandtoAngle;
 
-    CommandtoAngle = ANGLE_SCALING(rxCommands[ROLL]); 
-    error = CommandtoAngle - imu.angleRoll;
+    error = rxCommands[ROLL] - imu.angleRoll;
     ratePID[ROLL] = angle_PID_drone(&pid_roll, error, imu.mpu.rateRoll, 0.7, dt500Hz);
 
-    CommandtoAngle = ANGLE_SCALING(rxCommands[PITCH]);  
-    error = CommandtoAngle - imu.anglePitch;
+    error = rxCommands[PITCH] - imu.anglePitch;
     ratePID[PITCH] = angle_PID_drone(&pid_pitch, error, imu.mpu.ratePitch, 0.7, dt500Hz);
 
-    CommandtoAngle = ANGLE_SCALING(rxCommands[YAW]);
-    error = CommandtoAngle - imu.mpu.rateYaw;
+    error = rxCommands[YAW] - imu.mpu.rateYaw;
     ratePID[YAW] = base_PID_calc(&pid_yaw, error, imu.mpu.rateYaw, 0.7, dt500Hz);
 
     ///////////////////////////////////
