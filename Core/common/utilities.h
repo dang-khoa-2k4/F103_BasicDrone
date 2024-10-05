@@ -17,6 +17,7 @@
 /* Defines */
 #define white_space(c) ((c) == ' ' || (c) == '\t')
 #define valid_digit(c) ((c) >= '0' && (c) <= '9')
+#define FREQ_TO_TICK_CONTROL(x) (TIM_FREQ / x)
 
 /* Function Prototypes */
 /** @brief Constrains an input between two values.

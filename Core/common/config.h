@@ -43,6 +43,7 @@ extern PID_instance pid_pitch;
 extern PID_instance pid_yaw;
 extern PID_instance pid_inner_roll;
 extern PID_instance pid_inner_pitch;
+extern uint8_t config_done;
 
 void Config_Init(void);
 // void Config_PID(float kp, float ki, float kd);

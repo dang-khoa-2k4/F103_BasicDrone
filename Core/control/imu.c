@@ -71,15 +71,15 @@ void Kalman_1D_init(Kalman_1D_t * filter)
     filter->estimate_error = 0.0;
 }
 
-void imu_init(IMU * imu)
+void imu_init()
 {
-    mpu6050_init(&(imu->mpu));
-    bmp280_setup_Drone(&(imu->bmp));
-    bmp280_init(&(imu->bmp));
+    mpu6050_init(&(imu.mpu));
+    bmp280_setup_Drone(&(imu.bmp));
+    bmp280_init(&(imu.bmp));
 
-    Kalman_2D_init(&(imu->Kalman_2D), SAMPLING_TIME);
-    Kalman_1D_init(&(imu->Kalman_X));
-    Kalman_1D_init(&(imu->Kalman_Y));
+    Kalman_2D_init(&(imu.Kalman_2D), SAMPLING_TIME);
+    Kalman_1D_init(&(imu.Kalman_X));
+    Kalman_1D_init(&(imu.Kalman_Y));
 }
 
 double Kalman_getAngle(Kalman_1D_t * filter, double newAngle, double newRate)
@@ -126,13 +126,13 @@ void imu_update_bmp(IMU * imu)
     imu->altitude = bmp280_get_altitude(&(imu->bmp));
 }
 
-void imu_update_attitude(IMU * imu)
+void imu_update_attitude()
 {
-    imu_update_mpu(imu);
-    imu_update_bmp(imu);
-    kalman_attitude_filter(&(imu->Kalman_2D), imu->altitude, imu->inertial_z);
-    imu->altitude = imu->Kalman_2D.S[1][0];
-    imu->vertical_velocity = imu->Kalman_2D.S[0][0];
+    imu_update_mpu(&imu);
+    imu_update_bmp(&imu);
+    kalman_attitude_filter(&(imu.Kalman_2D), imu.altitude, imu.inertial_z);
+    imu.altitude = imu.Kalman_2D.S[1][0];
+    imu.vertical_velocity = imu.Kalman_2D.S[0][0];
 }
 
 void kalman_attitude_filter(Kalman_2D_t * kf, double alt, double iner_z) {

@@ -91,7 +91,16 @@ void Error_Handler(void);
 #define RFMotor_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
-
+#define USE_IMU
+#define USE_BMP
+#define USE_MPU
+#define USE_RX
+#define USE_TX
+#define USE_LED
+#define USE_MOTOR
+#define RUN
+#define USE_BATTERY
+// #define PRINT_LOG
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

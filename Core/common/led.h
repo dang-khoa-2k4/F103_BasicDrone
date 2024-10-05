@@ -15,17 +15,19 @@
 #endif
 
 /* Function Prototypes */
-void led_0_ON(void);
-void led_0_OFF(void);
-void led_0_Toggle(void);
+void led_arm_ON(void);
+void led_arm_OFF(void);
+void led_arm_Toggle(void);
 
-void led_1_ON(void);
-void led_1_OFF(void);
-void led_1_Toggle(void);
+void led_battery_ON(void);
+void led_battery_OFF(void);
+void led_battery_Toggle(void);
 
-void led_2_ON(void);
-void led_2_OFF(void);
-void led_2_Toggle(void);
+void led_optional_ON(void);
+void led_optional_OFF(void);
+void led_optional_Toggle(void);
+
+void leds_Set(void);
 
 #ifdef __cplusplus
 }

@@ -63,6 +63,14 @@ extern uint8_t armed;
 // #define BATT_ADC        &hadc1
 // UART
 #define MY_UART       USART1
+
+#define CONTROL_FREQ 500 // Hz
+#define CHECK_BATT_FREQ 10 // Hz
+#define LOG_FREG 100 // Hz
+#define LED_FREQ 2 // Hz
+
+#define TIM_PERIOD .1 // 0.1 ms = 100 us
+#define TIM_FREQ 10000 // 10 kHz
 /* Private defines -----------------------------------------------------------*/
 
 

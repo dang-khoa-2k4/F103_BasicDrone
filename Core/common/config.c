@@ -14,6 +14,8 @@ PID_instance pid_yaw;
 PID_instance pid_inner_roll;
 PID_instance pid_inner_pitch;
 
+uint8_t config_done = 0;
+
 void Config_Init(void)
 {
     // Initialize the IMU
@@ -35,5 +37,10 @@ void Config_Init(void)
     PID_init(&pid_pitch, &pid_inner_pitch, kP_pitch, kI_pitch, kD_pitch);
     PID_init(&pid_yaw, NULL, kP_yaw, kI_yaw, kD_yaw);
 
+    Scheduler_Init();
 
+    // Check 
+    battMonInit();
+
+    config_done = 1;
 }

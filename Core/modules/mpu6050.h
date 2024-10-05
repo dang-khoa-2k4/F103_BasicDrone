@@ -24,7 +24,7 @@
 #define CALIB_Ay_VALUE -0.02
 #define CALIB_Az_VALUE 0.01
 
-#define SAMPLING_TIME 	0.004 	// s
+#define SAMPLING_TIME 	0.002 	// s -> 500Hz
 #define STD_DEV_MEA		3		// degree per second
 #define STD_DEV_EST 	4  		// degree per second
 #define E_est SAMPLING_TIME*SAMPLING_TIME*STD_DEV_EST*STD_DEV_EST

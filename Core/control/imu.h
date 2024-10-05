@@ -59,7 +59,7 @@ typedef struct {
   * @param  imu: pointer to IMU struct
   * @retval None
 */
-void imu_init(IMU * imu);
+void imu_init();
 
 /**
   * @brief  Update MPU6050 data (angle, rate, accel, inertial_z)
@@ -80,7 +80,7 @@ void imu_update_bmp(IMU * imu);
   * @param  imu: pointer to IMU struct
   * @retval None
 */
-void imu_update_attitude(IMU * imu);
+void imu_update_attitude();
 
 /**
   * @brief  1D Kalman filter for MPU6050 to calculate angle

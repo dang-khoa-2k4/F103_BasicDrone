@@ -28,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "board.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,13 +105,36 @@ int main(void)
   MX_TIM2_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  LL_USART_Enable_IT_RXNE(USART3);
+    Config_Init();
+  // LL_USART_Enable_IT_RXNE(USART3);
+#ifdef USE_MPU
+    Scheduler_Add_Task(&imu_update_attitude, 0, FREQ_TO_TICK_CONTROL(CONTROL_FREQ)); // 2ms update rate -> .5kHz
+#endif
+#ifdef RUN 
+    Scheduler_Add_Task(&imu_update_attitude, 1, FREQ_TO_TICK_CONTROL(CONTROL_FREQ)); // 2ms update rate -> .5kHz
+    Scheduler_Add_Task(&nrf24l01_rx_receive, 3, FREQ_TO_TICK_CONTROL(CONTROL_FREQ)); // 2ms update rate -> .5kHz
+    Scheduler_Add_Task(&computeAxisCommands, 5, FREQ_TO_TICK_CONTROL(CONTROL_FREQ)); // 2ms update rate -> .5kHz
+    Scheduler_Add_Task(&mixTable, 7, FREQ_TO_TICK_CONTROL(CONTROL_FREQ));            // 2ms update rate -> .5kHz
+    Scheduler_Add_Task(&Motors_Run, 11, FREQ_TO_TICK_CONTROL(CONTROL_FREQ));          // 2ms update rate -> .5kHz
+#endif
+#ifdef PRINT_LOG // for uart log debug
+    // Scheduler_Add_Task(&print_log, 0, FREQ_TO_TICK_CONTROL(LOG_FREQ)); // 10ms update rate -> 100Hz
+#endif
+
+#ifdef USE_BATTERY // for uart log debug
+    Scheduler_Add_Task(&battMonRead, 0, FREQ_TO_TICK_CONTROL(CHECK_BATT_FREQ)); // 100ms update rate -> 10Hz
+#endif
+
+#ifdef USE_LED
+    Scheduler_Add_Task(&leds_Set, 0, FREQ_TO_TICK_CONTROL(LED_FREQ)); // 500ms update rate -> 2Hz
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    Scheduler_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -165,7 +189,13 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance == TIM2)
+    {
+        Scheduler_Update();
+    }
+}
 /* USER CODE END 4 */
 
 /**
