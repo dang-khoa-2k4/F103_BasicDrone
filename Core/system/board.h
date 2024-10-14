@@ -27,6 +27,17 @@ extern TIM_HandleTypeDef        htim2;
 
 extern uint8_t armed;
 
+#define USE_IMU
+#define USE_BMP
+#define USE_MPU
+#define USE_RX
+#define USE_TX
+#define USE_LED
+#define USE_MOTOR
+#define RUN
+#define USE_BATTERY
+// #define PRINT_LOG
+
 // Define all the peripherals used in the project
 
 // LED

@@ -11,7 +11,6 @@
 #include "string.h"
 #include <stdbool.h>
 #include <stdint.h>
-#include "board.h"
 
 /* User Configurations */
 
@@ -27,7 +26,7 @@
 #define NRF24L01_IRQ_PIN_PORT            MY_NRF24L01_IRQ_PIN_PORT
 #define NRF24L01_IRQ_PIN_NUMBER          MY_NRF24L01_IRQ_PIN_NUMBER
 
-#define NRF24L01_PAYLOAD_LENGTH          8     // 1 - 32bytes
+#define NRF24L01_PAYLOAD_LENGTH          5     // 1 - 32bytes
 #define PAYLOAD_USER                     4     // roll, pitch, yaw, throttle
 /* End User Configurations */
 
@@ -59,8 +58,13 @@ typedef enum
 	_2byte = 1
 } crc_length;
 
+#define ROLL     0
+#define PITCH    1
+#define YAW      2
+#define THROTTLE 3
+
 uint8_t rx_raw[NRF24L01_PAYLOAD_LENGTH];
-extern uint16_t rxCommands[PAYLOAD_USER];
+extern int16_t rxCommands[PAYLOAD_USER];
 /* FUNCTION PART */
 
 /* Main Functions */

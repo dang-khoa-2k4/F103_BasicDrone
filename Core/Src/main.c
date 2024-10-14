@@ -104,11 +104,12 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_USART3_UART_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
     Config_Init();
   // LL_USART_Enable_IT_RXNE(USART3);
 #ifdef USE_MPU
-    Scheduler_Add_Task(&imu_update_attitude, 0, FREQ_TO_TICK_CONTROL(CONTROL_FREQ)); // 2ms update rate -> .5kHz
+    Scheduler_Add_Task(&imu_update_attitude, 13, FREQ_TO_TICK_CONTROL(CONTROL_FREQ)); // 2ms update rate -> .5kHz
 #endif
 #ifdef RUN 
     Scheduler_Add_Task(&imu_update_attitude, 1, FREQ_TO_TICK_CONTROL(CONTROL_FREQ)); // 2ms update rate -> .5kHz
@@ -191,7 +192,7 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    if (htim->Instance == TIM2)
+    if (htim->Instance == TIM4)
     {
         Scheduler_Update();
     }

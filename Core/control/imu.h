@@ -12,11 +12,6 @@
 #include "mpu6050.h"
 #include "gy_bmp280.h"
 
-#define ROLL     0
-#define PITCH    1
-#define YAW      2
-#define THROTTLE 3
-
 typedef struct
 {
     double angle;

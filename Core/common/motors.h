@@ -11,8 +11,8 @@
 
 /* Defines */
 #define MOTOR_COUNT			4
-#define MIN_PWM				1000
-#define MAX_PWM				2000
+#define MIN_PWM				2000
+#define MAX_PWM				4000
 
 #define MIN_THROTTLE		(MIN_PWM + (MAX_PWM - MIN_PWM) / 10)
 #define MAX_THROTTLE		MAX_PWM

@@ -5,7 +5,7 @@
  *      Author: Nguyen Tran Dang Khoa
  */
 
-#include "nRF24L01.h"
+#include "board.h"
 
 uint8_t rx_raw[NRF24L01_PAYLOAD_LENGTH];
 uint16_t rxCommands[PAYLOAD_USER];
@@ -120,9 +120,9 @@ void nrf24l01_tx_init(channel MHz, air_data_rate bps)
 
 static void decode_data_received(uint8_t* rx_payload)
 {
-	rxCommands[ROLL] 		= rx_payload[0];
-	rxCommands[PITCH] 		= rx_payload[1];
-	rxCommands[YAW] 		= rx_payload[2];
+	rxCommands[ROLL] 		= rx_payload[0] - 30;
+	rxCommands[PITCH] 		= rx_payload[1] - 30;
+	rxCommands[YAW] 		= rx_payload[2] - 30;
 	rxCommands[THROTTLE] 	= (rx_payload[3] << 8) | rx_payload[4];
 }
 

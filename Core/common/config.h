@@ -35,7 +35,7 @@
 
 // use for converting the raw values from the receiver to the actual values
 #define ANGLE_SCALING(X) (15.0 * (X)/ (1 << 11))
-#define THROTTLE_SCALING(X) ((125.0f / 1024) * (X) + 1500)
+#define THROTTLE_SCALING(X) ((125.0f / 512) * (X) + 3000)
  
 /* Global Enums */
 extern PID_instance pid_roll;
